@@ -23,6 +23,11 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+if options[:query].nil?
+  raise OptionParser::MissingArgument.new("--query option not supplied")
+  exit 1
+end
+
 key = (options[:key] || 'full_name').to_sym
 file_path = options[:json] || './clients.json'
 query_string = options[:query].downcase
