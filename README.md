@@ -1,13 +1,9 @@
-# README
+# JSON Search
 
 This is a simple ruby command line tool that searches a given json array for a specific key and query string and also returns duplicate emails.
 
 ## Installation
 
-* Ruby version:
-```2.6.8```
-
-* Setup instructions
 1. Install ruby `2.6.8` depending on your choice of version manager (rvm, rbenv, asdf).
 2. Clone the repository and go to its directory.
 
