@@ -39,6 +39,12 @@ query_string = options[:query].downcase
 file = File.read(file_path)
 json_array = JSON.parse(file).map{|hash| hash.transform_keys(&:to_sym) }
 
+valid_keys = json_array.first.keys
+if !valid_keys.include?(key)
+  raise OptionParser::InvalidArgument.new("--key option supplied with an invalid value. '#{key}' key does not exist in the JSON")
+  exit 1
+end
+
 puts "Key: #{key}\n"
 puts "Query String: #{query_string}\n"
 
