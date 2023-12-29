@@ -1,5 +1,9 @@
+#!/usr/bin/env ruby
+
 require 'optparse'
 require 'json'
+require_relative '../lib/search'
+require_relative '../lib/get_duplicates'
 
 options = {}
 OptionParser.new do |opts|
@@ -34,11 +38,12 @@ query_string = options[:query].downcase
 
 file = File.read(file_path)
 json_array = JSON.parse(file).map{|hash| hash.transform_keys(&:to_sym) }
-matches = json_array.select { |json| json[key].include? query_string }
 
 puts "Key: #{key}\n"
 puts "Query String: #{query_string}\n"
-puts "Search Results: \n"
+
+matches = Search.execute(query_string: query_string, json_array: json_array, json_key: key)
+puts "Search Results: #{matches.count}\n"
 matches.each_with_index do |json, index|
   puts "\t #{index + 1}.\n"
   puts "\t\t ID: #{json[:id]}\n"
@@ -46,10 +51,7 @@ matches.each_with_index do |json, index|
   puts "\t\t Email: #{json[:email]}\n"
 end
 
-email_group = json_array.group_by{ |json| json[:email] }
-counts = email_group.map { |value, group| [value, group.map { |json| json[:id] }]}
-duplicates = counts.select { |key, value| value.length > 1 }
-
+duplicates = GetDuplicates.execute(json_array: json_array)
 puts "#{duplicates.length} Duplicate(s) Found: \n"
 duplicates.each_with_index do |duplicate, index|
   human_readable_ids = [duplicate[1][0...-1].join(", "), duplicate[1].last].join(", and ")
