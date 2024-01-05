@@ -4,7 +4,7 @@ require 'json'
 
 describe GetDuplicates do
   it 'returns a 3 dimensional array when there are duplicates' do
-    file_path = '../clients.json'
+    file_path = './clients.json'
     file = File.read(file_path)
     json_array = JSON.parse(file).map{|hash| hash.transform_keys(&:to_sym) }
 
