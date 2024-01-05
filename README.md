@@ -1,3 +1,4 @@
+
 # JSON Search
 
 This is a simple ruby command line tool that searches a given json array for a specific key and query string and also returns duplicate emails.
@@ -46,4 +47,15 @@ Search Results:
                  Email: jane.smith@yahoo.com
 1 Duplicate(s) Found:
   1. Clients with ids 2, and 15 are using the same email (jane.smith@yahoo.com)
+```
+
+## Tests
+Test are contained in the `tests` folder. These tests are written using `minitest`. To run these tests go inside the `tests` folder and run this command. 
+``` 
+ruby <filename.rb>
+```
+
+Example: 
+``` 
+ruby search.rb
 ```
