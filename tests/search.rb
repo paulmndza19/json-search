@@ -4,7 +4,7 @@ require 'json'
 
 describe Search do
   it 'returns a filtered version of the original json array' do
-    file_path = '../clients.json'
+    file_path = './clients.json'
     file = File.read(file_path)
     json_array = JSON.parse(file).map{|hash| hash.transform_keys(&:to_sym) }
 
